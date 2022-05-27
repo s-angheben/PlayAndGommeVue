@@ -14,6 +14,7 @@ import TitleApp from '@/components/TitleApp.vue'
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/manageAppointments">Appuntamenti</RouterLink>
+        <RouterLink to="/tires">Magazzino</RouterLink>
       </nav>
     </div>
   </header>
@@ -25,7 +26,6 @@ import TitleApp from '@/components/TitleApp.vue'
 @import '@/assets/base.css';
 
 #app {
-  max-width: 1280px;
   margin: 0 0;
   padding: 2rem;
 
@@ -82,7 +82,6 @@ nav a:first-of-type {
 
 @media (min-width: 1024px) {
   body {
-    display: flex;
     padding: 2rem;
   }
 

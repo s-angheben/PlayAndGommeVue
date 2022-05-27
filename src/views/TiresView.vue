@@ -2,10 +2,10 @@
 import SimpleTable from '@/components/SimpleTable.vue'
 import { ref, reactive, watchEffect } from 'vue'
 
-const APP_URL = `http://localhost:8080/api/v2/appointments`
+const APP_URL = `http://localhost:8080/api/v2/tires`
 
-const Tablekeys = ["self", "date", "service", "materials", "userId"]
-const Tablelabels = ["ID Appuntamento", "Data", "Servizio","Prodotti","Cliente"]
+const Tablekeys = ["self", "brand", "model", "length", "height","diameter","quantity", "type", "price"]
+const Tablelabels = ["ID Pneumatico", "marca", "modello", "lunghezza", "altezza", "diametro", "quantita'", "tipologia", "prezzo"]
 
 const appointments = ref(null)
 
@@ -16,7 +16,7 @@ watchEffect(async () => {
 
 <template>
   <div>
-  <h1 class="titlepage">Appuntamenti Prenotati:</h1>
+  <h1 class="titlepage">Materiale in magazzino:</h1>
 <!--
     <ul>
     <li v-for="app in appointments" :key="app.self">
