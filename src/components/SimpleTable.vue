@@ -8,6 +8,7 @@ const props = defineProps({
   keys: Array
 })
 
+const app = "Details"
 
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -30,6 +31,7 @@ function capitalize(str) {
         <td v-for="k in keys" :key="k">
           {{ entry[k] }}
         </td>
+        <router-link :to="{ name: 'Details', params: { id:entry.self, data:data, columns:columns, keys:keys }} ">!</router-link>
       </tr>
     </tbody>
   </table>

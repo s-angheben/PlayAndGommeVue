@@ -13,7 +13,7 @@ import TitleApp from '@/components/TitleApp.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/manageAppointments">Appuntamenti</RouterLink>
+        <RouterLink to="/appointments">Appuntamenti</RouterLink>
         <RouterLink to="/tires">Magazzino</RouterLink>
       </nav>
     </div>
