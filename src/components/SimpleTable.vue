@@ -9,6 +9,10 @@ const props = defineProps({
   keys: Array
 })
 
+function extractId (urlId) {
+  return urlId.substring(urlId.lastIndexOf('/') + 1)
+}
+
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
@@ -30,7 +34,7 @@ function capitalize(str) {
         <td v-for="k in keys" :key="k">
           {{ entry[k] }}
         </td>
-        <router-link :to="{ name: url, params: { id:entry.self }} ">!</router-link>
+        <router-link :to="{ name: url, params: { id:extractId(entry.self) }} ">!</router-link>
       </tr>
     </tbody>
   </table>

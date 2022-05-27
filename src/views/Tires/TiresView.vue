@@ -18,13 +18,6 @@ watchEffect(async () => {
 <template>
   <div>
   <h1 class="titlepage">Materiale in magazzino:</h1>
-<!--
-    <ul>
-    <li v-for="app in appointments" :key="app.self">
-      {{app}}
-    </li>
-  </ul>
--->
   <SimpleTable
     :url="url"
     :data="appointments"
@@ -41,13 +34,4 @@ watchEffect(async () => {
   color: #42b883;
   padding-top: 2rem;
 }
-/*
-ul {
-  padding: 2rem;
-}
-li {
-  line-height: 2em;
-  margin-bottom: 20px;
-}
-*/
 </style>
