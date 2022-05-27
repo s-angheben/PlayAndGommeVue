@@ -3,12 +3,11 @@ import DetailsView from '../views/DetailsView.vue'
 import { ref, computed } from 'vue'
 
 const props = defineProps({
+  url: String,
   data: Array,
   columns: Array,
   keys: Array
 })
-
-const app = "Details"
 
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -31,7 +30,7 @@ function capitalize(str) {
         <td v-for="k in keys" :key="k">
           {{ entry[k] }}
         </td>
-        <router-link :to="{ name: 'Details', params: { id:entry.self, data:data, columns:columns, keys:keys }} ">!</router-link>
+        <router-link :to="{ name: url, params: { id:entry.self }} ">!</router-link>
       </tr>
     </tbody>
   </table>

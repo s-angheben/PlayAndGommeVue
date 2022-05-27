@@ -7,6 +7,7 @@ const APP_URL = `http://localhost:8080/api/v2/tires`
 const Tablekeys = ["self", "brand", "model", "length", "height","diameter","quantity", "type", "price"]
 const Tablelabels = ["ID Pneumatico", "marca", "modello", "lunghezza", "altezza", "diametro", "quantita'", "tipologia", "prezzo"]
 
+const url = "DetailsTire"
 const appointments = ref(null)
 
 watchEffect(async () => {
@@ -25,6 +26,7 @@ watchEffect(async () => {
   </ul>
 -->
   <SimpleTable
+    :url="url"
     :data="appointments"
     :columns="Tablelabels"
     :keys="Tablekeys" >
