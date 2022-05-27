@@ -10,6 +10,7 @@
     min-height: 100vh;
     display: flex;
     align-items: top;
+    padding-top: 2rem;
   }
 }
 </style>
