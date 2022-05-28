@@ -23,7 +23,7 @@ watchEffect(async () => {
 <template>
   <div v-if="appointment" class="details">
     <div v-if="appointment.self">
-      <h1>Modifica Appuntamento:</h1>
+      <h2>Modifica Appuntamento:</h2>
       <form>
         <legend>{{ extractId(appointment.self) }}  </legend>
         <label>data:</label>
@@ -73,7 +73,7 @@ watchEffect(async () => {
   }
 }
 
-h1 {
+h2 {
   text-align: center;
   color: hsla(160, 100%, 37%, 1);
 
