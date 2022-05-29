@@ -1,5 +1,4 @@
 <script setup>
-import DetailsView from '../views/DetailsView.vue'
 import { ref, computed } from 'vue'
 
 const props = defineProps({

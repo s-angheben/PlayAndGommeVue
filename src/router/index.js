@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+
 import AppointmentsView from '../views/Appointments/AppointmentsView.vue'
 import DetailsApp from '../views/Appointments/DetailsApp.vue'
+
 import TiresView from '../views/Tires/TiresView.vue'
 import DetailsTire from '../views/Tires/DetailsTire.vue'
-import DetailsView from '../views/DetailsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

@@ -1,4 +1,5 @@
 <script setup>
+import AppForm from '@/components/AppForm.vue'
 import { ref, watchEffect } from "@vue/runtime-core"
 import { useRouter } from "vue-router";
 
@@ -10,7 +11,6 @@ const router = useRouter()
 
 const APP_URL = `http://localhost:8080/api/v2/appointments/`
 const appointment = ref(null)
-let data = "aaaa"
 
 function extractId (urlId) {
   return urlId.substring(urlId.lastIndexOf('/') + 1)
@@ -20,10 +20,13 @@ function goBack(){
   router.go(-1)
 }
 
+function goModify(){
+  console.log(appointment)
+}
+
 watchEffect(async () => {
   const url = APP_URL + props.id
   appointment.value = await (await fetch(url)).json()
-  console.log(appointment)
 })
 </script>
 
@@ -31,40 +34,23 @@ watchEffect(async () => {
   <div v-if="appointment" class="details">
     <div v-if="appointment.self">
       <h2>Modifica Appuntamento:</h2>
-      <form @submit.prevent>
-        <legend>{{ extractId(appointment.self) }}  </legend>
-        <label>data:</label>
-        <input type="data" v-model="appointment.date"> 
 
-        <label>servizio:</label>
-        <select>
-          <option value="cambio_gomme">Cambio Gomme</option>
-          <option value="riparazione">Riparazione</option>
-          <option value="controllo">Controllo</option>
-        </select>
+      <AppForm 
+        v-model:id="appointment.self"
+        v-model:date="appointment.date"
+        v-model:service="appointment.service"
+        v-model:materials="appointment.materials"
+        v-model:userId="appointment.userId"
+      />
 
-        <label>materiale:</label>
-        <input type="materiale"> 
-        <input type="number"> 
-        <button class="aggiungi">aggiungi</button>
-        <div class="gia">
-        <fieldset v-for="(material, index) in appointment.materials" :key="index">
-          <input type="materiale" v-model="material.materialId"> 
-          <input type="number" v-model="material.quantity"> 
-          <hr>
-        </fieldset>
+      <div class="submit">
+        <button @click="goBack" class="subback">Indietro</button>
+        <button class="subelim">Elimina</button>
+        <button @click="goModify" class="subbut">Modifica</button>
         </div>
 
-        <label>cliente:</label>
-        <input type="cliente" v-model="appointment.userId"> 
-
-        <div class="submit">
-          <button @click="goBack" class="subback">Indietro</button>
-          <button class="subelim">Elimina</button>
-          <button class="subbut">Modifica</button>
-        </div>
-      </form>
     </div>
+
     <div v-else>
       <h2>Appuntamento non trovato</h2>
     </div>
@@ -87,18 +73,9 @@ h2 {
 
 }
 
-legend {
-  font-size: 20px;
-  font-weight: bold;
-  color: black;
-  text-align: center;
-}
-
-.gia {
-  background-color: rgba(194, 191, 191, 0.64);
-}
-
 .submit {
+  margin:auto;
+  max-width: 800px;
   padding-top: 2rem;
   text-align: center;
 }
@@ -132,36 +109,4 @@ legend {
   float: right;
 }
 
-form {
-  max-width: 1080px;
-  margin: 30px auto;
-  background: white;
-  text-align: left;
-  padding: 40px;
-  border-radius: 10px;
-}
-label {
-  color: #aaa;
-  display: inline-block;
-  margin: 25px 0 15px;
-  font-size: 1em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-input, select {
-  display: block;
-  padding: 10px 6px;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  color: #555;
-}
-fieldset
-{
-  border: none;
-  max-width:100%;
-  padding:16px;	
-}
 </style>
