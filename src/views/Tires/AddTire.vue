@@ -1,53 +1,58 @@
 <script setup>
-import AppForm from '@/components/AppForm.vue'
+import TireForm from '@/components/TireForm.vue'
 import { ref, watchEffect } from "@vue/runtime-core"
 import { useRouter } from "vue-router";
 
 const router = useRouter()
 
-const APP_URL = `http://localhost:8080/api/v2/appointments/`
+const TIRE_URL = `http://localhost:8080/api/v2/tires/`
 
-const date = ref()
-const service = ref()
-const materials = ref([])
-const userId = ref()
-
-function extractId (urlId) {
-  return urlId.substring(urlId.lastIndexOf('/') + 1)
-}
+const brand = ref ()
+const model = ref ()
+const length = ref ()
+const height = ref ()
+const diameter = ref ()
+const quantity = ref ()
+const type = ref ()
+const price = ref ()
 
 function goBack(){
   router.go(-1)
 }
-
 
 async function create() {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ 
-      alreadyPaid: false,
-      appointmentPlaced: Date(),
-      date: date.value,
-      materials: materials.value,
-      service: service.value,
-      userId: userId.value    
+      brand: brand,
+      model: model,
+      length: length,
+      height: height,
+      diameter: diameter,
+      quantity: quantity,
+      type: type,
+      price: price
     })
   };
-  const response = await fetch(APP_URL, requestOptions);
+  const response = await fetch(TIRE_URL, requestOptions);
   console.log(response)
 }
 
 </script>
 
 <template>
-    <h2>Aggiungi Appuntamento: </h2>
+    <h2>Aggiungi Pneumatico: </h2>
 
-    <AppForm 
-      v-model:date="date"
-      v-model:service="service"
-      v-model:materials="materials"
-      v-model:userId="userId"
+    <TireForm 
+      v-model:brand="brand"
+      v-model:model="model"
+      v-model:length="length"
+      v-model:height="height"
+      v-model:diameter="diameter"
+      v-model:quantity="quantity"
+      v-model:type="type"
+      v-model:price="price"
     />
 
     <div class="submit">

@@ -7,6 +7,7 @@ import AddApp from '../views/Appointments/AddApp.vue'
 
 import TiresView from '../views/Tires/TiresView.vue'
 import DetailsTire from '../views/Tires/DetailsTire.vue'
+import AddTire from '../views/Tires/AddTire.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,6 +48,12 @@ const router = createRouter({
       path: '/appointments/add',
       name: 'AddApp',
       component: AddApp,
+      props: true
+    },
+    {
+      path: '/tires/add',
+      name: 'AddTire',
+      component: AddTire,
       props: true
     }
   ]

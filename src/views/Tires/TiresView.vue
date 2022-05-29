@@ -1,6 +1,7 @@
 <script setup>
 import SimpleTable from '@/components/SimpleTable.vue'
 import { ref, reactive, watchEffect } from 'vue'
+import { useRouter } from 'vue-router';
 
 const TIRE_URL = `http://localhost:8080/api/v2/tires`
 
@@ -10,6 +11,12 @@ const Tablelabels = ["ID Pneumatico", "marca", "modello", "lunghezza", "altezza"
 const url = "DetailsTire"
 const appointments = ref(null)
 
+const router = useRouter()
+
+function redirectToAddTire() {
+  router.push({ name: 'AddTire' })
+}
+
 watchEffect(async () => {
   appointments.value = await (await fetch(TIRE_URL)).json()
 })
@@ -18,6 +25,9 @@ watchEffect(async () => {
 <template>
   <div>
   <h1 class="titlepage">Materiale in magazzino:</h1>
+
+  <button @click="redirectToAddTire" class="aggiungi_button">Aggiungi</button>
+
   <SimpleTable
     :url="url"
     :data="appointments"

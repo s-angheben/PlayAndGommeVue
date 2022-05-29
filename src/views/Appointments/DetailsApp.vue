@@ -27,6 +27,7 @@ function goModify(){
 watchEffect(async () => {
   const url = APP_URL + props.id
   appointment.value = await (await fetch(url)).json()
+  if (!appointment.value.materials) appointment.value.materials = []
 })
 </script>
 

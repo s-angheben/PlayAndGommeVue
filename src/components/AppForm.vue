@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "@vue/runtime-core"
 const props = defineProps([
   'id',
   'date',
@@ -14,6 +15,18 @@ const emits = defineEmits([
   'update:materials',
   'update:userId'
 ])
+
+const materiale_agg = ref(null)
+const quantita_agg = ref(null)
+
+function addMaterial(){
+  props.materials.push({
+    "materialId": materiale_agg.value,
+    "quantity": quantita_agg.value
+  })
+  materiale_agg.value = null
+  quantita_agg.value = null
+}
 
 </script>
 
@@ -31,9 +44,10 @@ const emits = defineEmits([
     </select>
 
     <label>materiale:</label>
-    <input type="materiale"> 
-    <input type="number"> 
-    <button class="aggiungi">aggiungi</button>
+    <input type="materiale" v-model="materiale_agg"> 
+    <input type="number" v-model="quantita_agg"> 
+    <button @click="addMaterial" class="aggiungi_materiale">aggiungi</button>
+
     <div class="gia">
     <fieldset v-for="(material, index) in materials" :key="index">
 
