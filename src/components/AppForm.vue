@@ -1,7 +1,4 @@
 <script setup>
-import { ref, watchEffect } from "@vue/runtime-core"
-import { useRouter } from "vue-router";
-
 const props = defineProps([
   'id',
   'date',

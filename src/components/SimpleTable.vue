@@ -33,7 +33,7 @@ function capitalize(str) {
         <td v-for="k in keys" :key="k">
           {{ entry[k] }}
         </td>
-        <router-link :to="{ name: url, params: { id:extractId(entry.self) }} ">!</router-link>
+        <router-link :to="{ name: url, params: { id:extractId(entry.self) }} ">Modifica</router-link>
       </tr>
     </tbody>
   </table>

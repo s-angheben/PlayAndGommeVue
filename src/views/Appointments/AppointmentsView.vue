@@ -1,6 +1,9 @@
 <script setup>
 import SimpleTable from '../../components/SimpleTable.vue'
 import { ref, reactive, watchEffect } from 'vue'
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const APP_URL = `http://localhost:8080/api/v2/appointments`
 
@@ -10,6 +13,9 @@ const url = "DetailsApp"
 
 const appointments = ref(null)
 
+function redirectToAddApp() {
+  router.push({ name: 'AddApp' })
+}
 
 watchEffect(async () => {
   appointments.value = await (await fetch(APP_URL)).json()
@@ -19,6 +25,8 @@ watchEffect(async () => {
 <template>
   <div>
   <h1 class="titlepage">Appuntamenti Prenotati:</h1>
+  <button @click="redirectToAddApp" class="aggiungi_button">Aggiungi</button>
+
   <SimpleTable
     :url="url" 
     :data="appointments"
@@ -29,6 +37,18 @@ watchEffect(async () => {
 </template>
 
 <style>
+
+.aggiungi_button {
+  position: relative;
+  z-index: 99;
+  float:right;
+  background: hsla(160, 100%, 37%, 1);
+  border: 0;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 20px;
+}
 
 .titlepage {
   text-decoration: none;

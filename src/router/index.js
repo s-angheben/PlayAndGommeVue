@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 
 import AppointmentsView from '../views/Appointments/AppointmentsView.vue'
 import DetailsApp from '../views/Appointments/DetailsApp.vue'
+import AddApp from '../views/Appointments/AddApp.vue'
 
 import TiresView from '../views/Tires/TiresView.vue'
 import DetailsTire from '../views/Tires/DetailsTire.vue'
@@ -40,6 +41,12 @@ const router = createRouter({
       path: '/tires/:id',
       name: 'DetailsTire',
       component: DetailsTire,
+      props: true
+    },
+    {
+      path: '/appointments/add',
+      name: 'AddApp',
+      component: AddApp,
       props: true
     }
   ]
