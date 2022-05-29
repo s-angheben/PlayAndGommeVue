@@ -1,9 +1,12 @@
 <script setup>
 import { ref, watchEffect } from "@vue/runtime-core"
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   id: String,
 })
+
+const router = useRouter()
 
 const APP_URL = `http://localhost:8080/api/v2/appointments/`
 const appointment = ref(null)
@@ -11,6 +14,10 @@ let data = "aaaa"
 
 function extractId (urlId) {
   return urlId.substring(urlId.lastIndexOf('/') + 1)
+}
+
+function goBack(){
+  router.go(-1)
 }
 
 watchEffect(async () => {
@@ -24,7 +31,7 @@ watchEffect(async () => {
   <div v-if="appointment" class="details">
     <div v-if="appointment.self">
       <h2>Modifica Appuntamento:</h2>
-      <form>
+      <form @submit.prevent>
         <legend>{{ extractId(appointment.self) }}  </legend>
         <label>data:</label>
         <input type="data" v-model="appointment.date"> 
@@ -52,8 +59,9 @@ watchEffect(async () => {
         <input type="cliente" v-model="appointment.userId"> 
 
         <div class="submit">
-          <button class="subback">Back</button>
-          <button class="subbut">Modify</button>
+          <button @click="goBack" class="subback">Indietro</button>
+          <button class="subelim">Elimina</button>
+          <button class="subbut">Modifica</button>
         </div>
       </form>
     </div>
@@ -92,6 +100,16 @@ legend {
 
 .submit {
   padding-top: 2rem;
+  text-align: center;
+}
+
+.subelim {
+  background: red;
+  border: 0;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 20px;
 }
 
 .subback {
