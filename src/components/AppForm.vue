@@ -20,12 +20,19 @@ const materiale_agg = ref(null)
 const quantita_agg = ref(null)
 
 function addMaterial(){
+  if (materiale_agg.value == null || quantita_agg.value == null) return 
+
   props.materials.push({
     "materialId": materiale_agg.value,
     "quantity": quantita_agg.value
   })
   materiale_agg.value = null
   quantita_agg.value = null
+}
+
+function removeMaterial(index) {
+  if (index > -1)
+    props.materials.splice(index, 1)
 }
 
 </script>
@@ -53,7 +60,7 @@ function addMaterial(){
 
  <!--     <input type="materiale" :value="material.materialId" @input="$emit('update:materials', $event.target.value)"> 
       <input type="number" :value="material.quantity" @input="$emit('update:materials', $event.target.value)"> -->
-
+      <button @click="removeMaterial(index)" class="eliminaMateriale">X</button>
       <input type="materiale" v-model="material.materialId">
       <input type="number" v-model="material.quantity">
       <hr>
@@ -76,6 +83,10 @@ function addMaterial(){
   }
 }
 
+.eliminaMateriale {
+  background-color: red;
+}
+
 h2 {
   text-align: center;
   color: hsla(160, 100%, 37%, 1);
@@ -91,6 +102,7 @@ legend {
 
 .gia {
   background-color: rgba(194, 191, 191, 0.64);
+  text-align: right;
 }
 
 
