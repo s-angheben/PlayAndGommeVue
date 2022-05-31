@@ -1,6 +1,7 @@
 <script setup>
 import AppForm from '@/components/AppForm.vue'
-import { ref, watchEffect } from "@vue/runtime-core"
+import Toast from '@/components/Toast.vue'
+import { computed, ref, watchEffect } from "@vue/runtime-core"
 import { useRouter } from "vue-router";
 
 const props = defineProps({
@@ -11,6 +12,14 @@ const router = useRouter()
 
 const APP_URL = `http://localhost:8080/api/v2/appointments/`
 const appointment = ref(null)
+
+const url = computed (() => {
+  return APP_URL + props.id;
+})
+
+const showToast = ref(false);
+const msgToast = ref("error")
+const colorToast = ref("red")
 
 function extractId (urlId) {
   return urlId.substring(urlId.lastIndexOf('/') + 1)
@@ -24,9 +33,37 @@ function goModify(){
   console.log(appointment)
 }
 
+function goElim() {
+  const requestOptions = {
+    method: "DELETE",
+  };
+  fetch(url.value, requestOptions)
+  .then(async response => {
+    if (!response.ok) {
+        const data = await response.json();
+        const error = data.error || response.status; 
+        return Promise.reject(error);
+    }
+
+    msgToast.value = "Appuntamento Eliminato";
+    colorToast.value = "red";
+    showToast.value = true;
+    setTimeout(() => {
+      showToast.value = false
+      goBack();
+      }, 3000);
+  })
+  .catch(error => {
+    msgToast.value = "error: " + error;
+    colorToast.value = "red";
+    showToast.value = true;
+    setTimeout(() => showToast.value = false, 3000)
+  })
+
+}
+
 watchEffect(async () => {
-  const url = APP_URL + props.id
-  appointment.value = await (await fetch(url)).json()
+  appointment.value = await (await fetch(url.value)).json()
   if (!appointment.value.materials) appointment.value.materials = []
 })
 </script>
@@ -34,6 +71,10 @@ watchEffect(async () => {
 <template>
   <div v-if="appointment" class="details">
     <div v-if="appointment.self">
+      <Toast v-if="showToast" 
+        :msg="msgToast"
+        :color="colorToast"  
+      />
       <h2>Modifica Appuntamento:</h2>
 
       <AppForm 
@@ -46,7 +87,7 @@ watchEffect(async () => {
 
       <div class="submit">
         <button @click="goBack" class="subback">Indietro</button>
-        <button class="subelim">Elimina</button>
+        <button @click="goElim" class="subelim">Elimina</button>
         <button @click="goModify" class="subbut">Modifica</button>
         </div>
 

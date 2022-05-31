@@ -1,5 +1,6 @@
 <script setup>
 import AppForm from '@/components/AppForm.vue'
+import Toast from '@/components/Toast.vue'
 import { ref, watchEffect } from "@vue/runtime-core"
 import { useRouter } from "vue-router";
 
@@ -11,6 +12,10 @@ const date = ref()
 const service = ref()
 const materials = ref([])
 const userId = ref()
+
+const showToast = ref(false);
+const msgToast = ref("error")
+const colorToast = ref("red")
 
 function extractId (urlId) {
   return urlId.substring(urlId.lastIndexOf('/') + 1)
@@ -34,13 +39,41 @@ async function create() {
       userId: userId.value    
     })
   };
-  const response = await fetch(APP_URL, requestOptions);
-  console.log(response)
+  fetch(APP_URL, requestOptions)
+  .then(async response => {
+    console.log(requestOptions);
+    console.log(response);
+    if (!response.ok) {
+        const data = await response.json();
+        const error = data.error || response.status; 
+        return Promise.reject(error);
+    }
+
+    msgToast.value = "Appuntamento Aggiunto";
+    colorToast.value = "green";
+    showToast.value = true;
+    setTimeout(() => {
+      showToast.value = false
+      goBack();
+      }, 3000);
+
+  })
+  .catch(error => {
+    msgToast.value = "error: " + error;
+    colorToast.value = "red";
+    showToast.value = true;
+    setTimeout(() => showToast.value = false, 3000)
+  })
 }
 
 </script>
 
 <template>
+    <Toast v-if="showToast" 
+      :msg="msgToast"
+      :color="colorToast"  
+    />
+
     <h2>Aggiungi Appuntamento: </h2>
 
     <AppForm 

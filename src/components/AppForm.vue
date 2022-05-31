@@ -17,7 +17,7 @@ const emits = defineEmits([
 ])
 
 const materiale_agg = ref(null)
-const quantita_agg = ref(null)
+const quantita_agg = ref(0)
 
 function addMaterial(){
   if (materiale_agg.value == null || quantita_agg.value == null) return 
