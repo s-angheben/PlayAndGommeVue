@@ -41,8 +41,6 @@ async function create() {
   };
   fetch(APP_URL, requestOptions)
   .then(async response => {
-    console.log(requestOptions);
-    console.log(response);
     if (!response.ok) {
         const data = await response.json();
         const error = data.error || response.status; 
@@ -55,7 +53,7 @@ async function create() {
     setTimeout(() => {
       showToast.value = false
       goBack();
-      }, 3000);
+      }, 2000);
 
   })
   .catch(error => {

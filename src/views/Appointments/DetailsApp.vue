@@ -30,7 +30,34 @@ function goBack(){
 }
 
 function goModify(){
-  console.log(appointment)
+  const requestOptions = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(appointment.value)
+  };
+  fetch(url.value, requestOptions)
+  .then(async response => {
+    if (!response.ok) {
+        const data = await response.json();
+        const error = data.error || response.status; 
+        return Promise.reject(error);
+    }
+
+    msgToast.value = "Appuntamento Aggiornato";
+    colorToast.value = "green";
+    showToast.value = true;
+    setTimeout(() => {
+      showToast.value = false
+      goBack();
+      }, 2000);
+
+  })
+  .catch(error => {
+    msgToast.value = "error: " + error;
+    colorToast.value = "red";
+    showToast.value = true;
+    setTimeout(() => showToast.value = false, 3000)
+  })
 }
 
 function goElim() {
@@ -51,7 +78,7 @@ function goElim() {
     setTimeout(() => {
       showToast.value = false
       goBack();
-      }, 3000);
+      }, 2000);
   })
   .catch(error => {
     msgToast.value = "error: " + error;

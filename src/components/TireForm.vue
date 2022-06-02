@@ -1,15 +1,15 @@
 <script setup>
-const props = defineProps([
-  'id',
-  'brand',
-  'model',
-  'length',
-  'height',
-  'diameter',
-  'quantity',
-  'type',
-  'price'
-])
+const props = defineProps({
+  id : String,
+  brand : String, 
+  model : String,
+  length : Number,
+  height : Number,
+  diameter : Number,
+  quantity : Number,
+  type : String,
+  price : Number
+})
 
 const emits = defineEmits([
   'update:id',
@@ -35,16 +35,16 @@ const emits = defineEmits([
     <input type="input" :value="model" @input="$emit('update:model', $event.target.value)"> 
 
     <label>length:</label>
-    <input type="number" step="0.01" :value="length" @input="$emit('update:length', $event.target.value)"> 
+    <input type="number" step="0.01" :value="length" @input="$emit('update:length', parseFloat($event.target.value))"> 
 
     <label>height:</label>
-    <input type="number" step="0.01" :value="height" @input="$emit('update:height', $event.target.value)"> 
+    <input type="number" step="0.01" :value="height" @input="$emit('update:height', parseFloat($event.target.value))"> 
 
     <label>diameter:</label>
-    <input type="number" step="0.01" :value="diameter" @input="$emit('update:diameter', $event.target.value)"> 
+    <input type="number" step="0.01" :value="diameter" @input="$emit('update:diameter', parseFloat($event.target.value))"> 
 
     <label>quantity:</label>
-    <input type="number" :value="quantity" @input="$emit('update:quantity', $event.target.value)"> 
+    <input type="number" :value="quantity" @input="$emit('update:quantity', parseFloat($event.target.value))"> 
 
     <label>type:</label>
 
@@ -55,7 +55,7 @@ const emits = defineEmits([
     </select>
 
     <label>price:</label>
-    <input type="number" step="0.01" :value="price" @input="$emit('update:price', $event.target.value)"> 
+    <input type="number" step="0.01" :value="price" @input="$emit('update:price', parseFloat($event.target.value))"> 
   </form>
 </template>
 

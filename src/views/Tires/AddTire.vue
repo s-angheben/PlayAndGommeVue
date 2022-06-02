@@ -1,5 +1,6 @@
 <script setup>
 import TireForm from '@/components/TireForm.vue'
+import Toast from '@/components/Toast.vue'
 import { ref, watchEffect } from "@vue/runtime-core"
 import { useRouter } from "vue-router";
 
@@ -16,6 +17,10 @@ const quantity = ref ()
 const type = ref ()
 const price = ref ()
 
+const showToast = ref(false);
+const msgToast = ref("error")
+const colorToast = ref("red")
+
 function goBack(){
   router.go(-1)
 }
@@ -25,23 +30,49 @@ async function create() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ 
-      brand: brand,
-      model: model,
-      length: length,
-      height: height,
-      diameter: diameter,
-      quantity: quantity,
-      type: type,
-      price: price
+      brand: brand.value,
+      model: model.value,
+      length: length.value,
+      height: height.value,
+      diameter: diameter.value,
+      quantity: quantity.value,
+      type: type.value,
+      price: price.value
     })
   };
-  const response = await fetch(TIRE_URL, requestOptions);
-  console.log(response)
+  fetch(TIRE_URL, requestOptions)
+  .then(async response => {
+    if (!response.ok) {
+        const data = await response.json();
+        const error = data.error || response.status; 
+        return Promise.reject(error);
+    }
+
+    msgToast.value = "Pneumatico Aggiunto";
+    colorToast.value = "green";
+    showToast.value = true;
+    setTimeout(() => {
+      showToast.value = false
+      goBack();
+      }, 2000);
+
+  })
+  .catch(error => {
+    msgToast.value = "error: " + error;
+    colorToast.value = "red";
+    showToast.value = true;
+    setTimeout(() => showToast.value = false, 3000)
+  })
 }
 
 </script>
 
 <template>
+    <Toast v-if="showToast" 
+      :msg="msgToast"
+      :color="colorToast"  
+    />
+
     <h2>Aggiungi Pneumatico: </h2>
 
     <TireForm 
