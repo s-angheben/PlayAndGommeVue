@@ -2,6 +2,7 @@
 import SimpleTable from '../../components/SimpleTable.vue'
 import { ref, reactive, watchEffect } from 'vue'
 import { useRouter } from 'vue-router';
+import { store } from '@/store/store.js'
 
 const router = useRouter()
 
@@ -18,14 +19,15 @@ function redirectToAddApp() {
 }
 
 watchEffect(async () => {
-  const headers = { "x-access-token": localStorage.getItem('token') };
+  const headers = { "x-access-token": store.token };
+//  const headers = { "x-access-token": localStorage.getItem('token') };
   appointments.value = await (await fetch(APP_URL, { headers })).json()
   if (appointments.value.error) appointments.value = null;
 })
 </script>
 
 <template>
-  <div>
+  <div v-if="store.logged">
   <h1 class="titlepage">Appuntamenti Prenotati:</h1>
   <button @click="redirectToAddApp" class="aggiungi_button">Aggiungi</button>
 
@@ -36,6 +38,9 @@ watchEffect(async () => {
     :columns="Tablelabels"
     :keys="Tablekeys" >
   </SimpleTable>
+  </div>
+  <div v-else >
+    <h1>Accedi nell'area di login</h1>
   </div>
 </template>
 

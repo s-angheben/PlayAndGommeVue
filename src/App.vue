@@ -1,6 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import TitleApp from '@/components/TitleApp.vue'
+import { store } from '@/store/store.js'
+
 </script>
 
 <template>
@@ -9,7 +11,6 @@ import TitleApp from '@/components/TitleApp.vue'
 
     <div class="wrapper">
       <TitleApp msg="PlayAndGomme" />
-
       <nav>
         <RouterLink to="/">Login</RouterLink>
         <RouterLink to="/about">About</RouterLink>
@@ -17,6 +18,7 @@ import TitleApp from '@/components/TitleApp.vue'
         <RouterLink to="/tires">Magazzino</RouterLink>
       </nav>
     </div>
+    <h1 v-if="store.logged">User: {{store.username}} </h1>
   </header>
 
   <RouterView />

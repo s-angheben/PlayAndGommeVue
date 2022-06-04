@@ -1,5 +1,7 @@
 <script setup>
-import { ref } from "@vue/runtime-core"
+import { computed, ref, watchEffect } from "@vue/runtime-core"
+import Toast from '@/components/Toast.vue'
+import { store } from '@/store/store.js'
 
 const LOGIN_URL = `http://localhost:8080/api/v2/login/`
 
@@ -10,11 +12,14 @@ const usernameReg = ref();
 const passwordReg = ref();
 const confirmReg = ref();
 
-const logged = ref();
+const showToast = ref(false);
+const msgToast = ref("error")
+const colorToast = ref("red")
 
 function doLogout(){
-  localStorage.removeItem('token');
-  logged.value = false;
+//  localStorage.removeItem('token');
+  store.logged = false;
+  store.username = "";
 }
   
 function doLogin() {
@@ -33,15 +38,28 @@ function doLogin() {
         const error = data.error || response.status; 
         return Promise.reject(error);
     }
-
     //save the token
-    localStorage.setItem('token', data.token);
-    logged.value = true;
+    // localStorage.setItem('token', data.token);
+    store.logged = true;
+    store.username = usernameLogin.value;
+    store.token = data.token
 
     usernameLogin.value = "";
     passwordLogin.value = "";
+
+    msgToast.value = "Login effettuato";
+    colorToast.value = "green";
+    showToast.value = true;
+    setTimeout(() => {
+      showToast.value = false
+      goBack();
+      }, 2000);
   })
   .catch(error => {
+    msgToast.value = "error: " + error;
+    colorToast.value = "red";
+    showToast.value = true;
+    setTimeout(() => showToast.value = false, 3000)
     console.log(error);
   })
 }
@@ -52,9 +70,13 @@ function doRegister() {
 </script>
 
 <template>
+<Toast v-if="showToast" 
+  :msg="msgToast"
+  :color="colorToast"  
+/>
 <div id="app">
    <div class="login-page">
-     <div v-if="!logged" class="logged">
+     <div v-if="!store.logged" class="logged">
       <div class="container">
          <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
