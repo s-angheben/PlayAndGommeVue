@@ -18,7 +18,9 @@ function redirectToAddApp() {
 }
 
 watchEffect(async () => {
-  appointments.value = await (await fetch(APP_URL)).json()
+  const headers = { "x-access-token": localStorage.getItem('token') };
+  appointments.value = await (await fetch(APP_URL, { headers })).json()
+  if (appointments.value.error) appointments.value = null;
 })
 </script>
 
@@ -27,6 +29,7 @@ watchEffect(async () => {
   <h1 class="titlepage">Appuntamenti Prenotati:</h1>
   <button @click="redirectToAddApp" class="aggiungi_button">Aggiungi</button>
 
+  
   <SimpleTable
     :url="url" 
     :data="appointments"

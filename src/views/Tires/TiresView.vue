@@ -9,7 +9,7 @@ const Tablekeys = ["self", "brand", "model", "length", "height","diameter","quan
 const Tablelabels = ["ID Pneumatico", "marca", "modello", "lunghezza", "altezza", "diametro", "quantita'", "tipologia", "prezzo"]
 
 const url = "DetailsTire"
-const appointments = ref(null)
+const tires = ref(null)
 
 const router = useRouter()
 
@@ -18,7 +18,8 @@ function redirectToAddTire() {
 }
 
 watchEffect(async () => {
-  appointments.value = await (await fetch(TIRE_URL)).json()
+  tires.value = await (await fetch(TIRE_URL)).json()
+  if (tires.value.error) tires.value = null;
 })
 </script>
 
@@ -30,7 +31,7 @@ watchEffect(async () => {
 
   <SimpleTable
     :url="url"
-    :data="appointments"
+    :data="tires"
     :columns="Tablelabels"
     :keys="Tablekeys" >
   </SimpleTable>

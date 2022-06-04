@@ -11,7 +11,7 @@ import TitleApp from '@/components/TitleApp.vue'
       <TitleApp msg="PlayAndGomme" />
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/">Login</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/appointments">Appuntamenti</RouterLink>
         <RouterLink to="/tires">Magazzino</RouterLink>
