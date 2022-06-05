@@ -54,7 +54,7 @@ async function create() {
     setTimeout(() => {
       showToast.value = false
       goBack();
-      }, 2000);
+      }, 1000);
 
   })
   .catch(error => {
