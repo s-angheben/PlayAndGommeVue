@@ -68,7 +68,7 @@ function removeMaterial(index) {
     </div>
 
     <label>cliente:</label>
-    <input type="cliente" :value="userId" @input="$emit('update:userId', $event.target.value)"> 
+    <input type="cliente" placeholder="Se sei un cliente questo campo non ha importanza" :value="userId" @input="$emit('update:userId', $event.target.value)"> 
 
   </form>
 </template>

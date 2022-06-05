@@ -10,7 +10,7 @@ const props = defineProps({
 
 const router = useRouter()
 
-const APP_URL = `http://localhost:8080/api/v2/appointments/`
+const APP_URL = `/api/v2/appointments/`
 const appointment = ref(null)
 
 const url = computed (() => {

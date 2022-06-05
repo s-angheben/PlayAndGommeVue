@@ -3,10 +3,11 @@ import AppForm from '@/components/AppForm.vue'
 import Toast from '@/components/Toast.vue'
 import { ref, watchEffect } from "@vue/runtime-core"
 import { useRouter } from "vue-router";
+import { store } from '@/store/store.js'
 
 const router = useRouter()
 
-const APP_URL = `http://localhost:8080/api/v2/appointments/`
+const APP_URL = `/api/v2/appointments/`
 
 const date = ref()
 const service = ref()
@@ -29,7 +30,10 @@ function goBack(){
 async function create() {
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+      "Content-Type": "application/json",
+      "x-access-token": store.token
+    },
     body: JSON.stringify({ 
       alreadyPaid: false,
       appointmentPlaced: Date(),

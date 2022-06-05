@@ -6,7 +6,7 @@ import { useRouter } from "vue-router";
 
 const router = useRouter()
 
-const TIRE_URL = `http://localhost:8080/api/v2/tires/`
+const TIRE_URL = `/api/v2/tires/`
 
 const brand = ref ()
 const model = ref ()

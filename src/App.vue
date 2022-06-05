@@ -16,6 +16,9 @@ import { store } from '@/store/store.js'
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/appointments">Appuntamenti</RouterLink>
         <RouterLink to="/tires">Magazzino</RouterLink>
+        <RouterLink to="/calendar">Calendario</RouterLink>
+        <RouterLink to="/basicUI">basicUI</RouterLink>
+        <RouterLink to="/APIdoc">Api Documentation</RouterLink>
       </nav>
     </div>
     <h1 v-if="store.logged">User: {{store.username}} </h1>

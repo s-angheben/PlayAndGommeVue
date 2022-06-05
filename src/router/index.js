@@ -23,6 +23,21 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
+      path: '/basicUI',
+      name: 'basicUI',
+      component: () => import('../views/BasicUIView.vue')
+    },
+    {
+      path: '/APIdoc',
+      name: 'APIdoc',
+      component: () => import('../views/APIdocView.vue')
+    },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: () => import('../views/CalendarView.vue')
+    },
+    {
       path: '/appointments',
       name: 'appointments',
       component: AppointmentsView

@@ -6,7 +6,7 @@ import { store } from '@/store/store.js'
 
 const router = useRouter()
 
-const APP_URL = `http://localhost:8080/api/v2/appointments`
+const APP_URL = `/api/v2/appointments`
 
 const Tablekeys = ["self", "date", "service", "materials", "userId"]
 const Tablelabels = ["ID Appuntamento", "Data", "Servizio","Prodotti","Cliente"]

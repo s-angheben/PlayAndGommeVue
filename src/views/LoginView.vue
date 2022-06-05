@@ -3,8 +3,8 @@ import { computed, ref, watchEffect } from "@vue/runtime-core"
 import Toast from '@/components/Toast.vue'
 import { store } from '@/store/store.js'
 
-const LOGIN_URL = `http://localhost:8080/api/v2/login/`;
-const USERS_URL = `http://localhost:8080/api/v2/users/`;
+const LOGIN_URL = `/api/v2/login/`;
+const USERS_URL = `/api/v2/users/`;
 
 const registerActive = ref();
 // login
