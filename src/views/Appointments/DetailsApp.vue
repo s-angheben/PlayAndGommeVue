@@ -3,6 +3,7 @@ import AppForm from '@/components/AppForm.vue'
 import Toast from '@/components/Toast.vue'
 import { computed, ref, watchEffect } from "@vue/runtime-core"
 import { useRouter } from "vue-router";
+import { store } from '@/store/store.js'
 
 const props = defineProps({
   id: String,
@@ -32,7 +33,10 @@ function goBack(){
 function goModify(){
   const requestOptions = {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+      "Content-Type": "application/json",
+      "x-access-token": store.token
+    },
     body: JSON.stringify(appointment.value)
   };
   fetch(url.value, requestOptions)
@@ -90,7 +94,8 @@ function goElim() {
 }
 
 watchEffect(async () => {
-  appointment.value = await (await fetch(url.value)).json()
+  const headers = { "x-access-token": store.token };
+  appointment.value = await (await fetch(url.value, { headers })).json()
   if (!appointment.value.materials) appointment.value.materials = []
 })
 </script>
